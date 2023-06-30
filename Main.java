@@ -64,7 +64,7 @@ public class Main {
 
     static int[][] place(int board[][]) {
         int h = 0;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < n * n; i++) {
             if (h >= 9)
                 h = 0;
             for (int j = 0; j < 3; j++) {
@@ -84,7 +84,18 @@ public class Main {
         return board;
     }
 
+    static boolean wincheck(int board[][]) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == 0)
+                    return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
         int board[][] = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -95,6 +106,20 @@ public class Main {
         board = place(board);
         System.out.println();
         Print(board);
+        while (true) {
+            System.out.println("Enter the row,coloumn and the number");
+            int row = input.nextInt(), col = input.nextInt(), num = input.nextInt();
+            if (check(board, row, col, num)) {
+                board[row][col] = num;
+                Print(board);
+                if (wincheck(board)) {
+                    break;
+                }
+            } else {
+                System.out.println("Kindly check the number it's in valid on this position");
+                continue;
+            }
+        }
 
     }
 }
