@@ -5,16 +5,29 @@ public class Main {
 
     static void Print(int a[][]) {
         System.out.print("  ");
-        for (int j = 0; j < n; j++)
-            System.out.print(j + " ");
-
+        for (int j = 0; j < n; j++) {
+            if ((j + 1) % 3 == 0)
+                System.out.print(j + "    ");
+            else
+                System.out.print(j + " ");
+        }
         System.out.println();
+
         for (int i = 0; i < n; i++) {
             System.out.print(i + " ");
             for (int j = 0; j < n; j++) {
-                System.out.print(a[i][j] + " ");
+                if (a[i][j] == 0)
+                    System.out.print("  ");
+                else
+                    System.out.print(a[i][j] + " ");
+
+                if (j == 2 || j == 5 || j == 8)
+                    System.out.print(" | ");
+
             }
             System.out.println();
+            if (i == 2 || i == 5 || i == 8)
+                System.out.println("  - - - - - - - - - - - - - ");
         }
     }
 
@@ -32,16 +45,17 @@ public class Main {
 
     static int[][] place(int board[][]) {
         int h = 0;
-        for (int i = 0; i < n; i++) {
-            if (h > 9)
+        for (int i = 0; i < 3; i++) {
+            if (h >= 9)
                 h = 0;
-            for (int j = h; j < h + 3; j++) {
-                for (int k = h; k < h + 3; k++) {
-                    int row = (int) (Math.random() * 3);
-                    int col = (int) (Math.random() * 3);
-                    int num = (int) Math.random() * 9;
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    int row = (int) (Math.random() * 9);
+                    int col = (int) (Math.random() * 9);
+                    int num = (int) (Math.random() * 9);
+                    // System.out.println(row + " " + col + h + " " + num);
                     if (check(board, row, col, num)) {
-                        board[i][j] = num;
+                        board[row][col] = num;
                     }
 
                 }
@@ -60,6 +74,7 @@ public class Main {
         }
         Print(board);
         board = place(board);
+        System.out.println();
         Print(board);
 
     }
