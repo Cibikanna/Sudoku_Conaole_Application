@@ -31,6 +31,16 @@ public class Main {
         }
     }
 
+    static int give(int a) {
+        if (a >= 0 && a <= 2)
+            return 0;
+        else if (a >= 3 && a <= 5)
+            return 3;
+        else if (a >= 6 && a <= 8)
+            return 6;
+        return 0;
+    }
+
     static boolean check(int a[][], int row, int col, int num) {
         for (int i = 0; i < n; i++) {
             if (a[i][col] == num)
@@ -40,6 +50,15 @@ public class Main {
             if (a[row][i] == num)
                 return false;
         }
+        int r = give(row);
+        int c = give(col);
+        for (int i = r; i < r + 3; i++) {
+            for (int j = c; j < c + 3; j++) {
+                if (a[i][j] == num)
+                    return false;
+            }
+        }
+
         return true;
     }
 
